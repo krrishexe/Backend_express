@@ -3,9 +3,20 @@ const express = require('express');
 
 const app = express();     // basically a function
 
-// app.listen(3000);    // here we are using the methods of the app express
+// app.listen(3000);  // here we are using the methods of the app express
                     // listen is a method which listens to the the HTTP requests.
 
+app.get("/", function (request , response){
+    response.send("hello");
+})                      
+app.get("/contact", function (request , response){
+    response.send("Contact me at krishyadav@gmail.com");
+})                      
+app.get("/about", function (request , response){
+    response.send("Hii this is krishh");
+})                      
+                        // Makes a Get request to the specified route , to 'GET' data from the server
+                        //Also a method of app express which allows us to 
 
 app.listen(3000, function(){
     console.log("Server started Successfuly at port 3000");
