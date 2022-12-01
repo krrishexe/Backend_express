@@ -16,7 +16,7 @@ app.get("/about", function (request , response){
     response.send("Hii this is krishh");
 })                      
                         // Makes a Get request to the specified route , to 'GET' data from the server
-                        //Also a method of app express which allows us to 
+                        // .Listen is Also a method of app express which allows us to listen to the http requests on the mentioned server.
 
 app.listen(3000, function(){
     console.log("Server started Successfuly at port 3000");
