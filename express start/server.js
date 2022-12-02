@@ -1,4 +1,7 @@
+// To initalise the Server we user the command , npm init which sets up package.json 
+
 // import express from 'express';
+
 const express = require('express');
 
 const app = express();     // basically a function
