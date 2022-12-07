@@ -4,10 +4,13 @@ const axios = require("axios");
 
 const app = express();
 
-axios('https://www.imdb.com/chart/top/')
+axios('https://www.imdb.com/chart/top/')                                //axios( url of the site that you wanna scrap)
     .then(response =>{
         const html = response.data
-        const a = cheerio.load(html)
+        const a = cheerio.load(html)                                  // loading the data recieved from the site 
+        a(".titleColumn",html).each(function(){                     // for each item 
+            a(this).text()                                         // getting the particular item by --> a(this)
+        })                                                        // and now converting it to text.
     } )
 
 
