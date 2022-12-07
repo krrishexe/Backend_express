@@ -8,20 +8,29 @@ axios('https://www.flipkart.com/search?q=sony+headphones&sid=0pm%2Cfcn%2Cgc3%2Ck
     .then(response => {
         const html = response.data
         const $ = cheerio.load(html)
-        const articles = []
+        const heading = []
+        const imgArticles = []
         // loading the data recieved from the site to cheerio
         $("._4ddWXP", html).each(function () {                      // for each item 
-            // const title = $(this).text()
+
             const title = $(this).text()
-            const links = $(this).find('a').attr('href')
+                                                    // getting the particular item by --> a(this)
+                                                    // and now converting it to text.
+            heading.push({
+                title
+            })
+        })
+        $(".CXW8mj", html).each(function () {                      // for each item 
+
+            const links = $(this).find('img').attr('src')
             // getting the particular item by --> a(this)
             // and now converting it to text.
-            articles.push({
-                title,
+            imgArticles.push({
                 links
             })
         })
-        console.log(articles);
+        console.log(imgArticles);
+        console.log(heading);
     }).catch(err => console.log(err))
 
 
@@ -30,3 +39,7 @@ axios('https://www.flipkart.com/search?q=sony+headphones&sid=0pm%2Cfcn%2Cgc3%2Ck
 app.listen(8000, function () {
     console.log("Server started succeessfully at port 3000");
 })
+
+
+
+
