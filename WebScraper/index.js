@@ -29,8 +29,8 @@ axios('https://www.flipkart.com/search?q=sony+headphones&sid=0pm%2Cfcn%2Cgc3%2Ck
                 links
             })
         })
-        console.log(imgArticlesLinks);
-        console.log(heading);
+        console.log(imgArticlesLinks, heading);
+        // console.log(heading);
     }).catch(err => console.log(err))
 
 
