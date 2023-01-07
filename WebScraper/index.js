@@ -9,7 +9,7 @@ axios('https://www.flipkart.com/search?q=sony+headphones&sid=0pm%2Cfcn%2Cgc3%2Ck
         const html = response.data
         const $ = cheerio.load(html)
         const heading = []
-        const imgArticles = []
+        const imgArticlesLinks = []
         // loading the data recieved from the site to cheerio
         $("._4ddWXP", html).each(function () {                      // for each item 
 
@@ -25,11 +25,11 @@ axios('https://www.flipkart.com/search?q=sony+headphones&sid=0pm%2Cfcn%2Cgc3%2Ck
             const links = $(this).find('img').attr('src')
             // getting the particular item by --> a(this)
             // and now converting it to text.
-            imgArticles.push({
+            imgArticlesLinks.push({
                 links
             })
         })
-        console.log(imgArticles);
+        console.log(imgArticlesLinks);
         console.log(heading);
     }).catch(err => console.log(err))
 

@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser  = require('body-parser')
 
 const app = express();
-app.use(bodyParser.urlencoded({extended:true}))                // whenever we are using the post method to return anything to the 
+app.use(bodyParser.urlencoded({extended:true}))                // whenever we are using the post method to return   anything to the 
                                                 // browser homepage , we have to use the urlencoded function only
 
 
