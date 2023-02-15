@@ -23,7 +23,7 @@ axios('https://www.flipkart.com/search?q=sony+headphones&sid=0pm%2Cfcn%2Cgc3%2Ck
         $(".CXW8mj", html).each(function () {                      // for each item 
 
             const links = $(this).find('img').attr('src')
-            // getting the particular item by --> a(this)
+            // getting the particular item by --> $(this)
             // and now converting it to text.
             imgArticlesLinks.push({
                 links
