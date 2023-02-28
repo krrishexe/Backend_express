@@ -4,32 +4,53 @@ const axios = require("axios");
 
 const app = express();
 
-axios('https://www.flipkart.com/search?q=sony+headphones&sid=0pm%2Cfcn%2Cgc3%2Cka8&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_1_9_na_na_ps&otracker1=AS_QueryStore_OrganicAutoSuggest_1_9_na_na_ps&as-pos=1&as-type=HISTORY&suggestionId=sony+headphones%7CWireless+Headphones&requestId=5eeee3be-d666-4da4-b96c-b0a607429fcd')                                //axios( url of the site that you wanna scrap)
+axios('https://www.nike.com/in/launch')                                //axios( url of the site that you wanna scrap)
     .then(response => {
         const html = response.data
         const $ = cheerio.load(html)
         const heading = []
+        const para = []
         const imgArticlesLinks = []
         // loading the data recieved from the site to cheerio
-        $("._4ddWXP", html).each(function () {                      // for each item 
+        $(".headline-5", html).each(function () {                      // for each item 
 
-            const title = $(this).text()
+            const title = $(this).text();
                                                     // getting the particular item by --> a(this)
                                                     // and now converting it to text.
             heading.push({
                 title
             })
         })
-        $(".CXW8mj", html).each(function () {                      // for each item 
 
-            const links = $(this).find('img').attr('src')
+        $(".headline-3", html).each(function () {                      // for each item 
+
+            const p = $(this).text();
+                                                    // getting the particular item by --> a(this)
+                                                    // and now converting it to text.
+            para.push({
+                p
+            })
+        })
+
+        // $(".headline-3",html).each(function(){
+        //     const p = $(this).text();
+
+        //     para.push({
+        //         p
+        //     })
+        // })
+
+
+        $(".image-component mod-image-component u-full-width", html).each(function () {                      // for each item 
+
+            const url = $(this).text();
             // getting the particular item by --> $(this)
             // and now converting it to text.
             imgArticlesLinks.push({
-                links
+                url
             })
         })
-        console.log(imgArticlesLinks, heading);
+        console.log(heading,para,imgArticlesLinks);
         // console.log(heading);
     }).catch(err => console.log(err))
 
@@ -37,7 +58,7 @@ axios('https://www.flipkart.com/search?q=sony+headphones&sid=0pm%2Cfcn%2Cgc3%2Ck
 
 
 app.listen(8000, function () {
-    console.log("Server started succeessfully at port 3000");
+    console.log("Server started succeessfully at port 8000");
 })
 
 
