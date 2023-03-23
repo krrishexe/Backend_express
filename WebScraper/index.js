@@ -4,7 +4,9 @@ const axios = require("axios");
 
 const app = express();
 
-axios('https://www.superkicks.in/collections/men-sneakers?filter.v.availability=1&page=1')                                //axios( url of the site that you wanna scrap)
+let arr = [];
+
+axios('https://www.superkicks.in/collections/men-sneakers?filter.v.availability=1')                                //axios( url of the site that you wanna scrap)
     .then(response => {
         const html = response.data
         const $ = cheerio.load(html)
@@ -39,25 +41,31 @@ axios('https://www.superkicks.in/collections/men-sneakers?filter.v.availability=
             // ASK ASHU ABOUT THE TWO IMAGES IN A SINGLE DIV .
 
 
-
-        $(".card__media", html).each(function () {                      // for each item 
-
-            // const url = $(this).text();
-            const url = $(this).find('img').attr('src')
+        $("li.grid__item", html).each(function () {                      // for each item 
             
-            const url2 = $(this).find('img').attr('srcset')
+            // const url = $(this).text();
+            const url = $(this).find('a').attr('href')
+            // console.log(url)
+            
+            
             // getting the particular item by --> $(this)
             // and now converting it to text.
-            imgArticlesLinks.push({
-                url:'https:'+url,
-                url2:'https:'+url2
-            })
+            arr.push(
+                // url:'https:'+url
+                'https://www.superkicks.in'+url
+
+            )
+        
+            
         })
-        console.log(imgArticlesLinks);
-        // console.log(heading);
+
+
+
     }).catch(err => console.log(err))
 
-
+    
+    
+    
 
 
 app.listen(8000, function () {
