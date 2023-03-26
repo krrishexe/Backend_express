@@ -1,22 +1,13 @@
 from bs4 import BeautifulSoup
+import requests
 
-with open('main.html','r') as html_file:      # here "html_file" is a variable and "r" means to read the file.
+url = "https://github.com/krrishexe"
 
-    data = BeautifulSoup(html_file, 'html.parser')         # lmxl is a parser method.
-    # print(data.prettify())
+result = requests.get(url)
+doc = BeautifulSoup(result.text , "html.parser")
 
-tags = data.find_all("p")[0]
+# print(doc.prettify())
+
+tags = doc.find_all(text="contributions")
+# print(tags.find("span").string.strip())
 print(tags)
-
-
-# tags = data.find_all('div',class_= 'product-name')
-
-# for tag in tags :
-#     sliced_text = tag.text.strip()
-#     print(sliced_text)
-
-
-                                              #iterating each element of the list.
-# for tag in tags:                            
-#     print(tag.text)
-
