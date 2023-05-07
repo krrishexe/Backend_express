@@ -1,7 +1,9 @@
 const { error } = require('console');
 const mongoose = require('mongoose');
 const { Schema } = mongoose
-
+const express = require('express')
+const app = express()
+const router = express.Router();
 
 
 //CONNECTING TO DATABASE
@@ -86,7 +88,35 @@ const readingDocument = async () => {
     // .select({ name:1})
     // console.log(result);
 }
+
+
+
+
+updateDocument = async (id) => {
+    const result = await Book.updateOne({_id:id},{$set: {name:"Hello World"}})
+    console.log(result);
+}
+
+updateDocument('6456948556e525efffb10ee6')
+
 // readingDocument()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -95,3 +125,4 @@ const readingDocument = async () => {
 // db.collection.find({ name:"Fifty"}) --> here name is the query.
 // db.collection.find({ name:"Fifty"}).limit(1) --> limiting to show the first document only.
 // db.collection.find({ name:"Fifty"}).limit(1).skip(1) --> showing only one documnet while skipping the first document.
+//db.collection.find({ name:"Fifty"}).select({name:1}) --> select shows only those documents which contains name "Fifty"
