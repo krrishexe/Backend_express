@@ -35,7 +35,6 @@ const studentSchema = new mongoose.Schema({
     state:String,
     reg_No:{
         type:Number,
-        required:true,
     },
     class:{
         type:Number,
@@ -45,8 +44,8 @@ const studentSchema = new mongoose.Schema({
     phone:{
         type:Number,
         required:true,
-        min:10,
-        max:10,
+        minlength:10,
+        maxlength:10,
         unique:[true,"Phone-Number already exists"],
     },
 })
