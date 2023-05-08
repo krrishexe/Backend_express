@@ -18,29 +18,27 @@ const studentSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:[true,"Email-Id already exists"],
-        validate(value){
-            if(!validator.isEmail(value){
-                throw new Error('Invalid Email');
-            })
-        }
     },
-    password:String,
+    password:{
+        type:String,
+        required:true,
+    },
     gender:String,
     address:{
-        type:String
+        type:String,
         required:true,
     },
     city:{
-        type:String
+        type:String,
         required:true,
     },
     state:String,
     reg_No:{
-        type:Number
+        type:Number,
         required:true,
     },
     class:{
-        type:Number
+        type:Number,
         minlength:1,
         maxlength:12,
     },
@@ -49,12 +47,10 @@ const studentSchema = new mongoose.Schema({
         required:true,
         min:10,
         max:10,
-        unique:[true,"Phone-Number already exists"]
-        validator.isMobilePhone(value){
-            if(!validator.isMobilePhone(value){
-                throw new Error('Invalid Phone Number');
-            }
+        unique:[true,"Phone-Number already exists"],
     },
-
-
 })
+
+const student = new mongoose.model("student",studentSchema);
+
+module.exports = student;
