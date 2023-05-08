@@ -1,4 +1,5 @@
 const express = require('express');
+require('./db/conn')
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -11,5 +12,5 @@ app.post('/books' ,function(req, res){
 });
 
 app.listen(port,function(){
-    console.log(`Server started successfully at localhost:${port}`)
+    console.log(`Server started successfully at http://localhost:${port}/`)
 })
