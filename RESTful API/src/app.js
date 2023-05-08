@@ -1,45 +1,39 @@
 const express = require('express');
+const app = express();
 require('./db/conn')
 const Student = require('./Models/Students');
-const app = express();
 const port = process.env.PORT || 5000;
 
+
+//MIDDLEWARE:
 const bodyParser = require('body-parser');
+const studentRouter = require('./routes/student')
 app.use(bodyParser.json())
+app.use(studentRouter)
 
 
-//VIEW ALL THE STUDENTS
-app.get('/' ,async (req, res) =>{
-    const result = await Student.find()
-    res.send(result)
-    console.log(result)
-})
 
-//CREATE A NEW STUDENT
-app.post('/students' ,async (req, res) => {
-    // const addStudent = new Student({
-    //     name: req.body.name,
-    //     age: req.body.age,
-    //     email: req.body.email,
-    //     password: req.body.password,
-    //     gender: req.body.gender,
-    //     address: req.body.address,
-    //     reg_no: req.body.reg_no,
-    //     class: req.body.class,
-    //     phone: req.body.phone
-    // })
-    //instead of writing the whole request.boy , we can write a single re.body
-    try {
-        console.log(req.body)
-        const addStudent = new Student(req.body)
-        const result  = await addStudent.save()
-        res.status(201).send(result)
-    } catch (error) {
-        res.status(400).send(error)
-    }
-
-});
 
 app.listen(port,function(){
     console.log(`Server started successfully at http://localhost:${port}/`)
 })
+
+
+
+
+//VIEW THE DATA OF A PARTICULAR STUDENT BY NAME
+// app.get('/students/:name', async (req,res)=>{
+//     try {
+//         const _name = req.body.name
+//         const result = await Student.find()
+//         if(!result){
+//             res.status(404).send({message: 'Student not found'})
+//         }
+//         else{
+//             res.status(200).send(result)
+//             console.log(result)
+//         }
+//     } catch (error) {
+//         res.send(error.message)
+//     }
+// })
