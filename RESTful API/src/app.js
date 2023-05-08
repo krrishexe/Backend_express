@@ -16,7 +16,7 @@ app.get('/' ,async (req, res) =>{
 })
 
 //CREATE A NEW STUDENT
-app.post('/students' ,function(req, res){
+app.post('/students' ,async (req, res) => {
     // const addStudent = new Student({
     //     name: req.body.name,
     //     age: req.body.age,
@@ -29,14 +29,15 @@ app.post('/students' ,function(req, res){
     //     phone: req.body.phone
     // })
     //instead of writing the whole request.boy , we can write a single re.body
+    try {
+        console.log(req.body)
+        const addStudent = new Student(req.body)
+        const result  = await addStudent.save()
+        res.status(201).send(result)
+    } catch (error) {
+        res.status(400).send(error)
+    }
 
-    console.log(req.body)
-    const addStudent = new Student(req.body)
-    addStudent.save()
-    .then(() => {
-        res.status(201).send('Student added successfully')
-    })
-    .catch(err => {res.status(400).send(err)})
 });
 
 app.listen(port,function(){
