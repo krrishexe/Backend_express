@@ -6,11 +6,12 @@ const studentSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
-        trim:true,
-        minlength:3,
+        trim:true,                  //no spaces between.
+        minlength:2,
     },
     age:{
         type:Number,
+        required:true,
         min:3,
         max:18,
     },
@@ -23,7 +24,10 @@ const studentSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    gender:String,
+    gender:{
+        type:String,
+        required:true
+    },
     address:{
         type:String,
         required:true,
@@ -35,6 +39,8 @@ const studentSchema = new mongoose.Schema({
     state:String,
     reg_No:{
         type:Number,
+        required:true,
+        unique:[true,"reg_No already exists"],
     },
     class:{
         type:Number,
@@ -48,7 +54,7 @@ const studentSchema = new mongoose.Schema({
         maxlength:10,
         unique:[true,"Phone-Number already exists"],
     },
-})
+},{timestamps:true})
 
 const student = new mongoose.model("student",studentSchema);
 

@@ -1,6 +1,6 @@
 const { error } = require('console');
 const mongoose = require('mongoose');
-const { Schema } = mongoose
+const { Schema, model } = mongoose
 
 
 
@@ -23,7 +23,7 @@ const booksSchema = new Schema({
 
 // CREATING MODELS / COLLECTIONS
 // --> Model Name must be singular. For example "Book".
-const Book = new mongoose.model("Book", booksSchema)
+const Book = new model("Book", booksSchema)
 
 
 
@@ -102,7 +102,7 @@ const deleteDocument = async (id) =>{
     console.log(result)
 }
 
-deleteDocument("6456948556e525efffb10ee6")
+// deleteDocument("6456948556e525efffb10ee6")
 
 
 

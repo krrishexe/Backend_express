@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 require('./db/conn')
 const Student = require('./Models/Students');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 
 //MIDDLEWARE:

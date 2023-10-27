@@ -1,4 +1,4 @@
-// To initalise the Server we user the command , npm init which sets up package.json 
+// To initalise the Project we user the command , npm init which sets up package.json 
 
 // import express from 'express';
 
@@ -10,7 +10,7 @@ const app = express();     // basically a function
                     // listen is a method which listens to the the HTTP requests.
 
 app.get("/", function (request , response){
-    response.send("hello");
+    response.json({name:'krish'});
 })                      
 app.get("/contact", function (request , response){
     response.send("Contact me at krishyadav@gmail.com");
@@ -22,5 +22,5 @@ app.get("/about", function (request , response){
                         // .Listen is Also a method of app express which allows us to listen to the http requests on the mentioned server.
 
 app.listen(3000, function(){
-    console.log("Server started Successfuly at port 3000");
+    console.log("Server started Successfuly at port http://localhost:3000");
 })

@@ -16,4 +16,4 @@ const currentOS = {
     totalMem : os.totalmem(),
     freeMem : os.freemem(), 
 }
-console.log(currentOS.name)
+console.log(currentOS.totalMem)
