@@ -1,13 +1,18 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url); // to use require syntax of dotenv.
-require('dotenv').config()
+import dotenv from "dotenv"
 import mongoose from 'mongoose'
-// import { DB_NAME } from './constants.js';
-import express from 'express';
 import connectDB from './db/index.js';
-const app = express();
-
+import {app} from "./app.js"
+dotenv.config({
+                        //Dotenv is made available in only one file that is index.js and we are using the import syntax so please check pckage.json -- dev script before using dotenv
+    path: './env'
+})
 connectDB()
+.then(()=>{
+    app.listen(process.env.PORT || 8000 , ()=>{
+        console.log(`⚙️ Server is running at ${process.env.PORT}`)
+    })
+})
+.catch(err => console.log("MongoDB connection error: " + err))
 
 
 
