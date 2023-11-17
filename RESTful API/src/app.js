@@ -1,22 +1,30 @@
 const express = require('express');
 const app = express();
-require('./db/conn')
+const connectDB = require('./db/conn');
 const Student = require('./Models/Students');
-const port = process.env.PORT;
+require('dotenv').config()
+// const bodyParser = require('body-parser');
+const studentRouter = require('./routes/student')
+
 
 
 //MIDDLEWARE:
-const bodyParser = require('body-parser');
-const studentRouter = require('./routes/student')
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 app.use(studentRouter)
+app.use(express.bodyparser())
 
-
-
-
-app.listen(port,function(){
-    console.log(`Server started successfully at http://localhost:${port}/`)
+const server = app.listen(process.env.PORT,function(){
+    console.log(process.env)
+    console.log(`Server started successfully at http://localhost:${process.env.PORT}/`)
 })
+
+
+connectDB()
+.then(()=>{
+    server
+})
+.catch(err=>{console.log(err)})
+
 
 
 
