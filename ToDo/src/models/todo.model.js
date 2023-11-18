@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+// const validate = require('validate');
 const todoSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -15,6 +15,10 @@ const todoSchema = new mongoose.Schema({
     description:{
         type:String,
         required:true,
+    },
+    image:{
+        type:String,
+        unique:[true,"Image already taken"]
     }
 },{
     timestamps:true
