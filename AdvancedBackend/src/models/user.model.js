@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         lowercase: true,
-        trim: true,
-        index: true //for searching.
+        trim: true, //AAge peeche ke saare spaces hata deta hai.
+        index: true //if you want to make any field searchable.
     },
     email: {
         type: String,

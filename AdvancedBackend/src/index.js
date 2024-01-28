@@ -22,31 +22,3 @@ connectDB()
 
 
 
-
-
-
-
-// 2nd method of connecting to Database. 
-
-/*
-;(async()=>{
-    try {
-        const conn = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
-        
-        //agar koi error aagya to
-        app.on('error',(error)=>{
-            console.log("Server cant connect to DB : " , error)
-            throw new error
-        })
-        // agar chal gaya to
-
-        app.listen(process.env.PORT,()=>{
-            console.log(`Server listening on port ${process.env.PORT}`)
-        })
-
-
-    } catch (error) {
-        console.log("Error :" ,error)
-    }
-})()
-*/
