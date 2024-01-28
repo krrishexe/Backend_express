@@ -54,13 +54,14 @@ const userSchema = new mongoose.Schema({
 
 //pre is an inbuilt method of schema , as the name sugest , before saving the data into db , run this piece of code.
 
+// pre is a middleware of mongoose
 userSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 8)
         next()
     }
 })
-
+// .methods are methods of mongoose schema
 userSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
