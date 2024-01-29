@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { registerUser } from './controllers/register.controller.js';
 
 const app = express();
 
@@ -16,5 +17,10 @@ app.use(express.urlencoded({extended:true , limit:'12kb'})) // Middleware for ex
 app.use(express.static('public'))           // Middleware for express to store static files such as pdf , png , mp3 etc. int the public folder.
 
 app.use(cookieParser())                     // to configure CRUD operations on the cookies of users browser.
+
+// Importing Routes.
+import userRouter from './routes/user.routes.js';
+
+app.use('/api/v1/users',userRouter)
 
 export {app}
