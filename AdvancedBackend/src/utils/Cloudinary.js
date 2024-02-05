@@ -8,7 +8,7 @@ cloudinary.config({
 });
 
 // localfilepath = locally (server pe jaha) file stored hai uska path. 
-const uploadOnCloudinary = async (localfilepath) =>{
+export const uploadOnCloudinary = async (localfilepath) =>{
     try {
         if(!localfilepath) return null
         const response = await cloudinary.uploader.upload(localfilepath,{
@@ -25,3 +25,4 @@ const uploadOnCloudinary = async (localfilepath) =>{
 
     }
 }
+
