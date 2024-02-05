@@ -4,7 +4,7 @@ import connectDB from './db/index.js';
 import {app} from "./app.js"
 dotenv.config({
                         //Dotenv is made available in only one file that is index.js and we are using the import syntax so please check pckage.json -- dev script before using dotenv i.e. --> 
-    path: './env'
+    path: './.env'
 })
 // console.log(process.env)
 connectDB()
