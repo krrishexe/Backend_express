@@ -151,8 +151,39 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             .cookie("refreshToken", refreshToken, cookieOptions)
             .json({ msg: "Refresh token updated", status: "200", accessToken, refreshToken: newRefreshToken })
     } catch (error) {
-    throw new ApiError(404, "")
-}
+        throw new ApiError(404, "")
+    }
 })
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken }
+const changeCurrentPassword = asyncHandler(async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    //obviously user password jabh change kar paaega jab vo logged in hai.
+    const user = await User.findById(req.user._id)
+    const isPassCorrect = await user.isPasswordCorrect(oldPassword)
+    if (!isPassCorrect) {
+        return res.json({ msg: "Please enter the correct password", status: 404 })
+    }
+    user.password = newPassword
+    await user.save({ validateBeforeSave: false })
+    return res
+        .status(200)
+        .json({ msg: "password changed successfully", status: 200 })
+})
+
+const getCurrentUser = asyncHandler(async (req, res) => {
+    return res.status(200).json({ msg: "User details fetched successfully", status: 200, user: req.user })
+})
+
+const updateUserDetails = asyncHandler(async (req, res) => {
+    const { fullName, email } = req.body;
+    const (!(fullName || email)) {
+        return res.json({ msg: "Please enter the details to update", status: 404 })
+    }
+
+    const user = await User.findByIdAndUpdate(req.user?._id, $set: { fullName, email }, { new: true }).select("-password")
+
+    return res.status(200)
+        .json({ msg: "User details updated successfully", status: 200, user })
+})
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateUserDetails }
