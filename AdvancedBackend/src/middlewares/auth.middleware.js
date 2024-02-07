@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken"
 
 export const verifyJWT = asyncHandler(async (req, res, next) => {
 
+    // this code is just written to check if the user is logged in or not.
+
     try {
         //req me cookies kaise access kar rahe ho ?
         // kyuki cookies two way access ho sakti hai , res me bhi or req me bhi.
