@@ -176,14 +176,46 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 
 const updateUserDetails = asyncHandler(async (req, res) => {
     const { fullName, email } = req.body;
-    const (!(fullName || email)) {
+    if (!(fullName || email)) {
         return res.json({ msg: "Please enter the details to update", status: 404 })
     }
 
-    const user = await User.findByIdAndUpdate(req.user?._id, $set: { fullName, email }, { new: true }).select("-password")
+    const user = await User.findByIdAndUpdate(req.user?._id, { $set: { fullName, email } }, { new: true }).select("-password")
 
     return res.status(200)
         .json({ msg: "User details updated successfully", status: 200, user })
 })
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateUserDetails }
+
+const updateUserAvatar = asyncHandler(async (req, res) => {
+    const avatarPath = req.file?.path
+    if (!avatarPath) {
+        return res.json({ msg: "Avatar file is required", status: 400 })
+    }
+    const avatar = await uploadOnCloudinary(avatarPath)
+    if (!avatar.url) {
+        return res.json({ msg: "Error while Uploading on Cloudinary ", status: 400 })
+    }
+
+    const user = await User.findByIdAndUpdate(req.user._id, { $set: { avatar: avatar.url } }, { new: true }).select("-password")
+    return res.status(200).json({ msg: "Avatar updated successfully", status: 200, user })
+
+})
+
+const updateCoverPhoto = asyncHandler(async (req, res) => {
+    const coverImgPath = req.file?.path
+    if (!coverImgPath) {
+        return res.json({ msg: "Cover img file is required", status: 400 })
+    }
+    const coverImg = await uploadOnCloudinary(coverImgPath)
+    if (!coverImg.url) {
+        return res.json({ msg: "Error while Uploading on Cloudinary ", status: 400 })
+    }
+
+    const user = await User.findByIdAndUpdate(req.user._id, { $set: { coverImage: coverImg.url } }, { new: true }).select("-password")
+    return res.status(200).json({ msg: "Cover Image updated successfully", status: 200, user })
+
+})
+
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateUserDetails, updateUserAvatar,updateCoverPhoto }
