@@ -1,18 +1,18 @@
-import {v2 as cloudinary} from 'cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs'
-          
-cloudinary.config({ 
-  cloud_name:process.env.CLOUDINARY_CLOUD_NAME , 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET 
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 // localfilepath = locally (server pe jaha) file stored hai uska path. 
-export const uploadOnCloudinary = async (localfilepath) =>{
+export const uploadOnCloudinary = async (localfilepath) => {
     try {
-        if(!localfilepath) return null
-        const response = await cloudinary.uploader.upload(localfilepath,{
-            resource_type:'auto'
+        if (!localfilepath) return null
+        const response = await cloudinary.uploader.upload(localfilepath, {
+            resource_type: 'auto'
         })
         // console.log("File uploaded successfully!!" + response.url)
         fs.unlinkSync(localfilepath)
@@ -22,20 +22,20 @@ export const uploadOnCloudinary = async (localfilepath) =>{
 
     } catch (error) {
         fs.unlinkSync(localfilepath) // delete the locally saved temp file just in case the upload opertaion on cloudinary is failed.
-        console.log("Error uploading file : "+error)
+        console.log("Error uploading file : " + error)
         return null
 
     }
 }
 
 
-export const deleteFromCloudinary = async (publicId) =>{
+export const deleteFromCloudinary = async (publicId) => {
     try {
-        if(!publicId) return null
+        if (!publicId) return null
         const response = await cloudinary.uploader.destroy(publicId)
         console.log("File deleted successfully!!")
         return response
     } catch (error) {
-      throw new Error("error deleting file from cloudinary")  
+        throw new Error("error deleting file from cloudinary")
     }
 }

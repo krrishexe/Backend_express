@@ -188,7 +188,7 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
-    console.log(req)
+    console.log(req.file)
     const avatarPath = req.file?.path
     console.log("avatarPath" + avatarPath)
     if (!avatarPath) {
@@ -220,5 +220,68 @@ const updateCoverPhoto = asyncHandler(async (req, res) => {
 
 })
 
+const getUserChannelProfile = asyncHandler(async (req, res) => {
+    const { username } = req.params
+    if (!username?.trim()) {
+        return res.json({ msg: "username invalid", status: 404 })
+    }
+    const channel = await User.aggregate([
+        {
+            $match: { username }
+        },
+        {
+            $lookup: {
+                from: "subscriptions",
+                localField: "_id",
+                foreignField: "channel",
+                as: "subscribers"
+            }
+        },
+        {
+            $lookup: {
+                from: "subscriptions",
+                localField: "_id",
+                foreignField: "subscriber",
+                as: "subscribedTo"
+            }
+        },
+        {
+            $addfields: {
+                subscriberCount: { $size: "$subscribers" },
+                channelSubscribedToCount: { $size: "$subscribedTo" },
+                isSubscribed: {
+                    $cond: {
+                        if: {
+                            $in: [req.user?._id, "$subscribers.subscriber"]
+                        },
+                        then: true,
+                        else: false
+                    }
+                }
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateUserDetails, updateUserAvatar,updateCoverPhoto }
+            }
+        },
+        {
+            $project: {
+                fullName: 1,
+                username: 1,
+                avatar: 1,
+                subscriberCount: 1,
+                channelSubscribedToCount: 1,
+                isSubscribed: 1,
+                coverImage: 1,
+                email:1
+            }
+        }
+    ])
+
+    console.log(channel)
+
+    if (!channel?.length) {
+        return res.json({ msg: "Channel does not exist", status: 404 })
+    }
+    return res.json({ msg: "Channel details fetched successfully", status: 200, channel: channel[0] })
+}
+
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateUserDetails, updateUserAvatar, updateCoverPhoto, getUserChannelProfile }
