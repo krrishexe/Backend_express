@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js"
 import { User } from "../models/user.model.js"
 import { ApiError } from '../utils/ApiError.js'
-import { uploadOnCloudinary } from "../utils/Cloudinary.js"
+import { deleteFromCloudinary, uploadOnCloudinary } from "../utils/Cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import jwt from "jsonwebtoken"
 
@@ -188,7 +188,9 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
+    console.log(req)
     const avatarPath = req.file?.path
+    console.log("avatarPath" + avatarPath)
     if (!avatarPath) {
         return res.json({ msg: "Avatar file is required", status: 400 })
     }
@@ -198,6 +200,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findByIdAndUpdate(req.user._id, { $set: { avatar: avatar.url } }, { new: true }).select("-password")
+    deleteFromCloudinary(avatar.public_id)
     return res.status(200).json({ msg: "Avatar updated successfully", status: 200, user })
 
 })
