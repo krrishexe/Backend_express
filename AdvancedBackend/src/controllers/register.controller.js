@@ -26,7 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     const { fullName, email, username, password } = req.body;
 
-    if ([fullName, email, username, password].some((field) => field?.trim() === '')) {  // new method to check if all the fields are valid.(using some method)
+    if ([fullName, email, username, password].some((field) => field?.trim() === '')) {  // new method to check if all the fields are valid.(using .some method)
         return res.json({ msg: "All the fields are required", status: 404 })
     }
     const usernameCheck = await User.findOne({ $or: [{ username }, { email }] })      // $or => ek sath check kar lega ki pehle se koi email or username hai kya DB me.
@@ -49,7 +49,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const coverImage = await uploadOnCloudinary(coverImagePath)
 
     if (!avatar) {
-        return res.json({ msg: "Avatar is a required field", status: 400 })
+        return res.json({ msg: "Image upload on Cloudinary failed", status: 400 })
     }
 
     const user = await User.create({
