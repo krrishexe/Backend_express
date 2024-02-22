@@ -14,5 +14,23 @@ const redis = new Redis();
 // }
 // main()
 
+// Lists in Redis:              
+// lists in redis can act as both queues and stacks.
+// to use it as queue, use lpush and rpop >>> [1,2,3,4,5]
+// to use it as stack, use lpush and lpop >>> [1,2,3,4,5].
 
+async function main() {
+    // await redis.lpush('messages',"Hello")
+    // await redis.lpush('messages',"world")
+    // await redis.lpop('messages')                                // removes the first element from list
+    // await redis.rpop('messages')                                // removes the last element from list
+    // await redis.rpush('messages',"bye bye")
+    // await redis.rpush('messages',"world")
+    await redis.blpop('messages', 20)                            // blocks the client until a new message arrives
+    // await redis.del('messages')
+    const result = await redis.lrange('messages', 0, -1)        // returns all the elements in the list
+    //console.log(await redis.llen('messages'))               // returns the length of list
+    console.log(result)
+}
+main()
 module.exports = { redis }
