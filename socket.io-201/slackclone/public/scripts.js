@@ -17,8 +17,15 @@ socket.on('namespaces', (nsData) => {
     nsData.map((ns) => {
         namespaces.innerHTML += `<div class="namespace" ns=${ns.endpoint}><img src=${ns.image}></div>`
     })
-    const namespaceDivs = document.querySelectorAll('.namespace')
-    console.log(namespaceDivs)
+    const namespaceDivs = Array.from(document.querySelectorAll('.namespace'))
+    namespaceDivs.map((elem) => {
+        console.log(elem)
+
+        elem.addEventListener('click', (e) => {
+            joinNs(elem,nsData)
+        })
+        joinNs(namespaceDivs[0],nsData)
+    })
 })
 
 socket.emit('messageFromClient', { data: "hello from client" })
