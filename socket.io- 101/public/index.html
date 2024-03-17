@@ -42,12 +42,11 @@
 <!-- this is happening when the server is running -->
 <!-- docket.io.js is added to the html file by the socket server -->
 
-<script src="/socket.io/socket.io.js">
-</script>
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
 <script>
     // now io object is available in the window object
     // console.log(window.io)
-    const socket = io('http://localhost:5000/')
+    const socket = io('http://localhost:5000')
     console.log(socket)
 
     socket.on('connect', () => {
