@@ -14,6 +14,8 @@ socket.on('connect', () => {
 
 socket.on('namespaces', (nsData) => {
     const namespaces = document.querySelector('.namespaces')
+    namespaces.innerHTML = ''
+
     nsData.map((ns) => {
         namespaces.innerHTML += `<div class="namespace" ns=${ns.endpoint}><img src=${ns.image}></div>`
     })
@@ -22,9 +24,9 @@ socket.on('namespaces', (nsData) => {
         console.log(elem)
 
         elem.addEventListener('click', (e) => {
-            joinNs(elem,nsData)
+            joinNs(elem, nsData)
         })
-        joinNs(namespaceDivs[0],nsData)
+        joinNs(namespaceDivs[0], nsData)
     })
 })
 
