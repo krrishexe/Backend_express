@@ -221,7 +221,7 @@ const updateCoverPhoto = asyncHandler(async (req, res) => {
 })
 
 const getUserChannelProfile = asyncHandler(async (req, res) => {
-    const { username } = req.params
+    const { username } = req.params;
     if (!username?.trim()) {
         return res.json({ msg: "username invalid", status: 404 })
     }
@@ -270,7 +270,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
                 channelSubscribedToCount: 1,
                 isSubscribed: 1,
                 coverImage: 1,
-                email:1
+                email: 1
             }
         }
     ])
@@ -281,7 +281,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         return res.json({ msg: "Channel does not exist", status: 404 })
     }
     return res.json({ msg: "Channel details fetched successfully", status: 200, channel: channel[0] })
-}
+})
 
 
 export { registerUser, loginUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateUserDetails, updateUserAvatar, updateCoverPhoto, getUserChannelProfile }

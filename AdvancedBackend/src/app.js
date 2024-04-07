@@ -6,7 +6,7 @@ import { registerUser } from './controllers/register.controller.js';
 const app = express();
 
 app.use(cors({                              // Middleware for cors to connect b/w backend and frontend.
-    origin:process.env.CORS_ORIGIN || *,         // We can give options in these brackets. (although they are not necessary)
+    origin:'*',         // We can give options in these brackets. (although they are not necessary)
     credentials:true
 }));
 
