@@ -12,7 +12,12 @@ async function main() {
     const user = await prisma.user.findUnique({
         where: {
             email: 'one@one.com'
-    }})
+    },
+    include:{
+        posts:true
+    }
+
+})
     console.log(user)
 }
 main().then(async () => {
